@@ -2,10 +2,10 @@
 name: CMake-Linux-x64
 
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+  # push:
+  #   branches: ["main"]
+  # pull_request:
+  #   branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -58,20 +58,20 @@ jobs:
         run: ctest -C ${{env.BUILD_TYPE}}
 
         # gather the binaries and put them into a folder
-      - name: Package
-        id: create_artifact
-        shell: bash
-        run: |
-          mkdir release
-          cp ./build/warpaffine/warpaffine release/
-          cp ./warpaffine/THIRD_PARTY_LICENSES_ARTIFACT_DISTRIBUTION.txt release/
-          name="warpaffine-linux-x64-$(git describe --always)"
-          echo "name=${name}" >> "$GITHUB_OUTPUT"
-          echo "path=release" >> "$GITHUB_OUTPUT"
+      # - name: Package
+      #   id: create_artifact
+      #   shell: bash
+      #   run: |
+      #     mkdir release
+      #     cp ./build/warpaffine/warpaffine release/
+      #     cp ./warpaffine/THIRD_PARTY_LICENSES_ARTIFACT_DISTRIBUTION.txt release/
+      #     name="warpaffine-linux-x64-$(git describe --always)"
+      #     echo "name=${name}" >> "$GITHUB_OUTPUT"
+      #     echo "path=release" >> "$GITHUB_OUTPUT"
 
       # upload the build-results to artifacts-store
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{steps.create_artifact.outputs.name}} # This is the name of the artifact that will be uploaded to GitHub, determined in the step above
-          path: ${{steps.create_artifact.outputs.path}} # This is the path to the artifacts that will be uploaded to GitHub, determined in the step above
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ${{steps.create_artifact.outputs.name}} # This is the name of the artifact that will be uploaded to GitHub, determined in the step above
+      #     path: ${{steps.create_artifact.outputs.path}} # This is the path to the artifacts that will be uploaded to GitHub, determined in the step above
